@@ -30,6 +30,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> 
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item = mLayoutInflater.inflate(R.layout.dish_item, parent, false);
+
         return new MyViewHolder(item);
     }
 
@@ -55,7 +56,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> 
         public MyViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.txt_dishname);
-            category = itemView.findViewById(R.id.txt_cateogry);
+            category = itemView.findViewById(R.id.txt_category);
             price = itemView.findViewById(R.id.txt_price);
             avatar = itemView.findViewById(R.id.img_avatar);
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -64,13 +65,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> 
                     Toast.makeText(mContext, name.getText(), Toast.LENGTH_LONG).show();
                 }
             });
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    Toast.makeText(mContext, "Long item clicked " + name.getText(), Toast.LENGTH_LONG).show();
-                    return true;
-                }
-            });
+
         }
     }
 }
