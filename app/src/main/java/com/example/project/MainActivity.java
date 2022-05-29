@@ -9,16 +9,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.project.Adapter.DishAdapter;
+import com.example.project.Interface.OnCardClickListener;
 import com.example.project.Model.Dish;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnCardClickListener {
     private List<Dish> list = new ArrayList<>();
     private RecyclerView recyclerView;
+    private OnCardClickListener onCardClickListener;
     private DishAdapter adapter;
     private boolean isLogin;
     private Button btn_gotoCart;
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         prepareMovieData();
         recyclerView = findViewById(R.id.main_recycler_view);
-        adapter = new DishAdapter(this, list);
+        adapter = new DishAdapter(this, list, onCardClickListener);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -76,5 +79,10 @@ public class MainActivity extends AppCompatActivity {
         dish = new Dish("Bò kho", "Khác", 35000, R.drawable.bo_kho);
         list.add(dish);
 
+    }
+
+    @Override
+    public void onCardClick(View cardView) {
+        Toast.makeText(this,  "Đã thêm vào giỏ hàng", Toast.LENGTH_LONG).show();
     }
 }

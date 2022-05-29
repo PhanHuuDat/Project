@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.project.Interface.OnCardClickListener;
 import com.example.project.Model.Dish;
 import com.example.project.R;
 
@@ -22,11 +23,13 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
     private LayoutInflater mLayoutInflater;
     private Context mContext;
     private List<Dish> selectList;
+    private OnCardClickListener onCardClickListener;
 
-    public DishAdapter(Context mContext, List<Dish> dishList) {
+    public DishAdapter(Context mContext, List<Dish> dishList, OnCardClickListener onCardClickListener) {
         this.dishList = dishList;
         this.mContext = mContext;
         this.mLayoutInflater = LayoutInflater.from(mContext);
+        this.onCardClickListener = onCardClickListener;
     }
 
     @NonNull
@@ -43,6 +46,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         holder.category.setText(dish.getCategory());
         holder.price.setText(String.valueOf(dish.getPrice()));
         holder.avatar.setImageResource(dish.getAvatar_id());
+
     }
 
     @Override
@@ -64,10 +68,13 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    /*onCardClickListener.onCardClick(itemView);*/
                     Toast.makeText(mContext, name.getText() + "Đã thêm vào giỏ hàng", Toast.LENGTH_LONG).show();
                 }
             });
 
         }
     }
+
+
 }
