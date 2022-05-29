@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 
@@ -15,11 +16,18 @@ public class MainActivity extends AppCompatActivity {
     private List<Dish> list = new ArrayList<>();
     private RecyclerView recyclerView;
     private DishAdapter adapter;
-
+    private boolean isLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        isLogin = getIntent().getBooleanExtra("isLogin", false);
+
+        if(!isLogin){
+            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+            startActivity(intent);
+        }
 
         prepareMovieData();
         recyclerView = findViewById(R.id.recycler_view);
