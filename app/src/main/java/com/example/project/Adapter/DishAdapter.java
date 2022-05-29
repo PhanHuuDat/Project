@@ -1,7 +1,6 @@
-package com.example.project;
+package com.example.project.Adapter;
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +11,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.project.Model.Dish;
+import com.example.project.R;
+
 import java.util.List;
 
-public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> {
+public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder> {
 
     private List<Dish> dishList;
     private LayoutInflater mLayoutInflater;
     private Context mContext;
+    private List<Dish> selectList;
 
     public DishAdapter(Context mContext, List<Dish> dishList) {
         this.dishList = dishList;
@@ -28,14 +31,13 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> 
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DishViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item = mLayoutInflater.inflate(R.layout.dish_item, parent, false);
-
-        return new MyViewHolder(item);
+        return new DishViewHolder(item);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DishViewHolder holder, int position) {
         Dish dish = dishList.get(position);
         holder.name.setText(dish.getName());
         holder.category.setText(dish.getCategory());
@@ -49,11 +51,11 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> 
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class DishViewHolder extends RecyclerView.ViewHolder {
         public TextView name, category, price;
         public ImageView avatar;
 
-        public MyViewHolder(View itemView) {
+        public DishViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.txt_dishname);
             category = itemView.findViewById(R.id.txt_category);
@@ -62,7 +64,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(mContext, name.getText(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, name.getText() + "Đã thêm vào giỏ hàng", Toast.LENGTH_LONG).show();
                 }
             });
 

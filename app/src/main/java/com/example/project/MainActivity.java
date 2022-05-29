@@ -7,7 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.view.View;
+import android.widget.Button;
+
+import com.example.project.Adapter.DishAdapter;
+import com.example.project.Model.Dish;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private DishAdapter adapter;
     private boolean isLogin;
+    private Button btn_gotoCart;
+    private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,19 +30,30 @@ public class MainActivity extends AppCompatActivity {
 
         isLogin = getIntent().getBooleanExtra("isLogin", false);
 
+        btn_gotoCart = findViewById(R.id.btn_back);
+        btn_gotoCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent = new Intent(MainActivity.this,CartActivity.class);
+                startActivity(intent);
+            }
+        });
+
         if(!isLogin){
-            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+            intent = new Intent(MainActivity.this,LoginActivity.class);
             startActivity(intent);
         }
 
         prepareMovieData();
-        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.main_recycler_view);
         adapter = new DishAdapter(this, list);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+
+
     }
 
     private void prepareMovieData() {
