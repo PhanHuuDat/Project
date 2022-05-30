@@ -26,26 +26,23 @@ public class MainActivity extends AppCompatActivity implements OnCardClickListen
     private boolean isLogin;
     private Button btn_gotoCart;
     private Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        isLogin = getIntent().getBooleanExtra("isLogin", false);
+        checkLogin();
 
         btn_gotoCart = findViewById(R.id.btn_back);
         btn_gotoCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(MainActivity.this,CartActivity.class);
+                intent = new Intent(MainActivity.this, CartActivity.class);
                 startActivity(intent);
             }
         });
 
-        if(!isLogin){
-            intent = new Intent(MainActivity.this,LoginActivity.class);
-            startActivity(intent);
-        }
 
         prepareMovieData();
         recyclerView = findViewById(R.id.main_recycler_view);
@@ -57,6 +54,14 @@ public class MainActivity extends AppCompatActivity implements OnCardClickListen
         recyclerView.setAdapter(adapter);
 
 
+    }
+
+    private void checkLogin() {
+        isLogin = getIntent().getBooleanExtra("isLogin", false);
+        if (!isLogin) {
+            intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void prepareMovieData() {
@@ -78,11 +83,10 @@ public class MainActivity extends AppCompatActivity implements OnCardClickListen
 
         dish = new Dish("Bò kho", "Khác", 35000, R.drawable.bo_kho);
         list.add(dish);
-
     }
 
     @Override
     public void onCardClick(View cardView) {
-        Toast.makeText(this,  "Đã thêm vào giỏ hàng", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_LONG).show();
     }
 }

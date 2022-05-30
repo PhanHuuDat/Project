@@ -68,8 +68,8 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    /*onCardClickListener.onCardClick(itemView);*/
-                    Toast.makeText(mContext, name.getText() + "Đã thêm vào giỏ hàng", Toast.LENGTH_LONG).show();
+                    onCardClickListener.onCardClick(itemView);
+                   /* Toast.makeText(mContext, name.getText() + "Đã thêm vào giỏ hàng", Toast.LENGTH_LONG).show();*/
                 }
             });
 
