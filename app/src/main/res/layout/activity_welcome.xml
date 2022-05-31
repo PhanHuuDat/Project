@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F7F6"
+    tools:context="welcom_login.PageWelcome">
+
+
+    <ImageView
+        android:transitionName="logo_image"
+        android:id="@+id/img_logo"
+        android:layout_width="396dp"
+        android:layout_height="411dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/food1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:textColor="@color/purple_500"
+        android:transitionName="logo_text"
+        android:id="@+id/tv_title"
+        android:layout_width="357dp"
+        android:layout_height="146dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="cursive"
+        android:gravity="center"
+        android:text="Food Ordering System"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_logo" />
+
+    <TextView
+        android:textColor="#B8902C"
+        android:id="@+id/tv_under_title"
+        android:layout_width="296dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/anton"
+        android:gravity="center"
+        android:text="A life full of Tasty Food"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
