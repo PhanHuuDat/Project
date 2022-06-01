@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8F7F6"
-    tools:context="welcom_login.PageWelcome">
+    tools:context="com.example.project.PageWelcome">
 
 
     <ImageView
@@ -38,15 +38,15 @@
         app:layout_constraintTop_toBottomOf="@+id/img_logo" />
 
     <TextView
-        android:textColor="#B8902C"
         android:id="@+id/tv_under_title"
         android:layout_width="296dp"
         android:layout_height="55dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/anton"
         android:gravity="center"
         android:text="A life full of Tasty Food"
         android:textAlignment="center"
+        android:textColor="#B8902C"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"

@@ -1,4 +1,4 @@
-package welcom_login;
+package com.example.project;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -13,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.project.R;
 
 public class PageWelcome extends AppCompatActivity {
 
