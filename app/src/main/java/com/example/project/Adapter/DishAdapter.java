@@ -1,6 +1,8 @@
 package com.example.project.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +13,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.project.Interface.OnCardClickListener;
+import com.example.project.CartActivity;
+import com.example.project.MainActivity;
 import com.example.project.Model.Dish;
 import com.example.project.R;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder> {
@@ -22,14 +27,15 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
     private List<Dish> dishList;
     private LayoutInflater mLayoutInflater;
     private Context mContext;
-    private List<Dish> selectList;
-    private OnCardClickListener onCardClickListener;
+    private List<Dish> viewList;
+    private Bundle myBundle;
 
-    public DishAdapter(Context mContext, List<Dish> dishList, OnCardClickListener onCardClickListener) {
+    public DishAdapter(Context mContext, List<Dish> dishList, Bundle myBundle) {
         this.dishList = dishList;
         this.mContext = mContext;
         this.mLayoutInflater = LayoutInflater.from(mContext);
-        this.onCardClickListener = onCardClickListener;
+        viewList = new ArrayList<>();
+        this.myBundle = myBundle;
     }
 
     @NonNull
@@ -46,6 +52,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         holder.category.setText(dish.getCategory());
         holder.price.setText(String.valueOf(dish.getPrice()));
         holder.avatar.setImageResource(dish.getAvatar_id());
+
 
     }
 
@@ -65,11 +72,21 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
             category = itemView.findViewById(R.id.txt_category);
             price = itemView.findViewById(R.id.txt_price);
             avatar = itemView.findViewById(R.id.img_avatar);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onCardClickListener.onCardClick(itemView);
-                   /* Toast.makeText(mContext, name.getText() + "Đã thêm vào giỏ hàng", Toast.LENGTH_LONG).show();*/
+                    for (int i = 0; i < dishList.size(); i++) {
+                        if(dishList.get(i).getName().equals(name.getText().toString())){
+                            viewList.add(dishList.get(i));
+                            break;
+                        }
+                    }
+                    Toast.makeText(mContext, name.getText().toString(), Toast.LENGTH_LONG).show();
+
+
+                    myBundle.putSerializable("list", (Serializable) viewList);
+
                 }
             });
 

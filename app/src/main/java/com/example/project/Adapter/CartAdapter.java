@@ -18,7 +18,7 @@ import com.example.project.R;
 
 import java.util.List;
 
-public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder>{
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
     private List<Dish> cartList;
     private LayoutInflater mLayoutInflater;
     private Context mContext;
@@ -32,7 +32,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View item = mLayoutInflater.inflate(R.layout.dish_item, parent, false);
+        View item = mLayoutInflater.inflate(R.layout.cart_item, parent, false);
         return new CartAdapter.CartViewHolder(item);
     }
 
@@ -43,6 +43,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.category.setText(dish.getCategory());
         holder.price.setText(String.valueOf(dish.getPrice()));
         holder.avatar.setImageResource(dish.getAvatar_id());
+        holder.quantity.setText("0");
+        holder.totalPrice.setText("0");
     }
 
     @Override
@@ -55,14 +57,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         public TextView name, category, price, totalPrice;
         public ImageView avatar;
         public EditText quantity;
+
         public CartViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.txt_dishname);
             category = itemView.findViewById(R.id.txt_category);
             price = itemView.findViewById(R.id.txt_price);
             avatar = itemView.findViewById(R.id.img_avatar);
-            quantity =  itemView.findViewById(R.id.txt_quantity);
+            quantity = itemView.findViewById(R.id.txt_quantity);
             totalPrice = itemView.findViewById(R.id.txt_total);
+
 
             quantity.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -77,10 +81,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
                 @Override
                 public void afterTextChanged(Editable editable) {
-                    int totalPricePerDish = Integer.parseInt(quantity.getText().toString())*Integer.parseInt(price.getText().toString());
-                    totalPrice.setText(totalPricePerDish);
+                    int quan = Integer.parseInt(quantity.getText().toString());
+                    int pri = Integer.parseInt(price.getText().toString());
+                    int totalPricePerDish = quan * pri;
+                    totalPrice.setText(String.valueOf(totalPricePerDish));
                 }
             });
+
 
         }
     }

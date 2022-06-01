@@ -12,55 +12,53 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.project.Adapter.DishAdapter;
-import com.example.project.Interface.OnCardClickListener;
 import com.example.project.Model.Dish;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements OnCardClickListener {
+public class MainActivity extends AppCompatActivity {
     private List<Dish> list = new ArrayList<>();
     private RecyclerView recyclerView;
-    private OnCardClickListener onCardClickListener;
     private DishAdapter adapter;
     private boolean isLogin;
     private Button btn_gotoCart;
-    private Intent intent;
-
+    private Intent intentToCart, intentToLogin;
+    private Bundle bundleToCart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        intentToCart = new Intent(MainActivity.this, CartActivity.class);
+        bundleToCart = new Bundle();
         checkLogin();
 
         btn_gotoCart = findViewById(R.id.btn_back);
-        btn_gotoCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent = new Intent(MainActivity.this, CartActivity.class);
-                startActivity(intent);
-            }
-        });
-
 
         prepareMovieData();
         recyclerView = findViewById(R.id.main_recycler_view);
-        adapter = new DishAdapter(this, list, onCardClickListener);
+        adapter = new DishAdapter(this, list, bundleToCart);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-
+        btn_gotoCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intentToCart.putExtra("myPackage",bundleToCart);
+                startActivity(intentToCart);
+            }
+        });
     }
 
     private void checkLogin() {
         isLogin = getIntent().getBooleanExtra("isLogin", false);
         if (!isLogin) {
-            intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
+            intentToLogin = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intentToLogin);
         }
     }
 
@@ -85,8 +83,5 @@ public class MainActivity extends AppCompatActivity implements OnCardClickListen
         list.add(dish);
     }
 
-    @Override
-    public void onCardClick(View cardView) {
-        Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_LONG).show();
-    }
+
 }

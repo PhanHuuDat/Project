@@ -2,12 +2,14 @@ package com.example.project.Model;
 
 import android.widget.ImageView;
 
-public class Dish {
+import java.io.Serializable;
+
+public class Dish implements Serializable {
     private String name, category;
-    private double price;
+    private int price;
     private int avatar_id;
 
-    public Dish(String name, String category, double price, int avatar_id) {
+    public Dish(String name, String category, int price, int avatar_id) {
         this.name = name;
         this.category = category;
         this.price = price;
@@ -33,11 +35,11 @@ public class Dish {
         this.category = category;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
