@@ -33,18 +33,30 @@ public class Login extends AppCompatActivity {
                 if (doValidate()) {
                     Intent intent = new Intent(Login.this, MainActivity.class);
                     startActivityForResult(intent, 0);
-                } else {
-                    Toast.makeText(Login.this, "Thiếu thông tin", Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
 
     public boolean doValidate() {
-        if (edt_UserName.getEditText().getText().toString().compareTo("") == 0 && edt_UserName.getEditText().getText().toString().compareTo("") == 0) {
+        String user = edt_UserName.getEditText().getText().toString();
+        String pass = edt_Pass.getEditText().getText().toString();
+        String noWhiteSpace = "";
+        if (user.isEmpty()) {
+            edt_UserName.setError("Username cannot be empty!");
             return false;
+        } else if (pass.isEmpty()) {
+            edt_Pass.setError("Password cannot be empty!");
+            return false;
+        } else {
+            edt_UserName.setError(null);
+            edt_UserName.setErrorEnabled(false);
+
+            edt_Pass.setError(null);
+            edt_Pass.setErrorEnabled(false);
+            return true;
         }
-        return true;
+
     }
 
     public void anhxa() {

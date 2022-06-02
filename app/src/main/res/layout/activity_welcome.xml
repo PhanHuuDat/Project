@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F7F6"
+    android:background="#FBC02D"
     tools:context="com.example.project.PageWelcome">
 
 
@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_logo" />
 
-    <TextView
+    z<TextView
         android:id="@+id/tv_under_title"
         android:layout_width="296dp"
         android:layout_height="55dp"
