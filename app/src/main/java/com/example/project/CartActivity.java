@@ -49,7 +49,7 @@ public class CartActivity extends Activity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                myIntent = new Intent();
+                myIntent = new Intent(CartActivity.this,MainActivity.class);
                 myIntent.putExtra("callBack",myBundle);
                 setResult(Activity.RESULT_OK,myIntent);
                 finish();
