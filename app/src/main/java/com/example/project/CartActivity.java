@@ -1,6 +1,7 @@
 package com.example.project;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +23,7 @@ public class CartActivity extends Activity {
     private CartAdapter adapter;
     private Button btn_back, btn_calculator;
     private Bundle myBundle;
-
+    private Intent myIntent;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +49,9 @@ public class CartActivity extends Activity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setResult();
+                myIntent = new Intent();
+                myIntent.putExtra("callBack",myBundle);
+                setResult(Activity.RESULT_OK,myIntent);
                 finish();
             }
         });

@@ -1,5 +1,6 @@
 package com.example.project;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -52,6 +53,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentToCart);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        bundleToCart = data.getBundleExtra("callBack");
     }
 
     private void checkLogin() {
