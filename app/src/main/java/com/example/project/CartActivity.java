@@ -37,7 +37,7 @@ public class CartActivity extends Activity {
             list = new ArrayList<>();
         }
         recyclerView = findViewById(R.id.cart_recycler_view);
-        adapter = new CartAdapter(this, list);
+        adapter = new CartAdapter(this, list,myBundle);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -48,6 +48,7 @@ public class CartActivity extends Activity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setResult();
                 finish();
             }
         });

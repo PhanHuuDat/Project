@@ -28,14 +28,12 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
     private LayoutInflater mLayoutInflater;
     private Context mContext;
     private List<Dish> viewList;
-    private List<Dish> tempList;
     private Bundle myBundle;
 
     public DishAdapter(Context mContext, List<Dish> dishList, Bundle myBundle) {
         this.dishList = dishList;
         this.mContext = mContext;
         this.mLayoutInflater = LayoutInflater.from(mContext);
-        tempList = dishList;
         viewList = new ArrayList<>();
         this.myBundle = myBundle;
     }
@@ -54,8 +52,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         holder.category.setText(dish.getCategory());
         holder.price.setText(String.valueOf(dish.getPrice()));
         holder.avatar.setImageResource(dish.getAvatar_id());
-
-
     }
 
     @Override
@@ -79,14 +75,16 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
                 @Override
                 public void onClick(View view) {
                     for (int i = 0; i < dishList.size(); i++) {
-                        if(tempList.get(i).getName().equals(name.getText().toString())){
-                            viewList.add(dishList.get(i));
-                            tempList.remove(i);
-                            Toast.makeText(mContext, name.getText().toString(), Toast.LENGTH_LONG).show();
+                        if(dishList.get(i).getName().equals(name.getText().toString())){
+                            if(!viewList.contains(dishList.get(i))){
+                                viewList.add(dishList.get(i));
+                            }
+                            Toast.makeText(mContext, name.getText().toString(), Toast.LENGTH_SHORT).show();
                             break;
                         }
                     }
                     myBundle.putSerializable("list", (Serializable) viewList);
+                    
                 }
             });
 
