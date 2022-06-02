@@ -17,11 +17,14 @@ import com.example.project.Model.Dish;
 import com.example.project.R;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
     private List<Dish> cartList;
     private LayoutInflater mLayoutInflater;
     private Context mContext;
+    private int totalPricePerDish;
 
     public CartAdapter(Context mContext, List<Dish> dishList) {
         this.cartList = dishList;
@@ -52,7 +55,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         return cartList.size();
     }
 
-
     public class CartViewHolder extends RecyclerView.ViewHolder {
         public TextView name, category, price, totalPrice;
         public ImageView avatar;
@@ -67,7 +69,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             quantity = itemView.findViewById(R.id.txt_quantity);
             totalPrice = itemView.findViewById(R.id.txt_total);
 
-
             quantity.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -81,14 +82,23 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
                 @Override
                 public void afterTextChanged(Editable editable) {
-                    int quan = Integer.parseInt(quantity.getText().toString());
-                    int pri = Integer.parseInt(price.getText().toString());
-                    int totalPricePerDish = quan * pri;
+
+                    if(isNumber(quantity.getText().toString())){
+                        int quan = Integer.parseInt(quantity.getText().toString());
+                        int pri = Integer.parseInt(price.getText().toString());
+                        totalPricePerDish = quan * pri;
+                    }else{
+                        totalPricePerDish = 0;
+                    }
                     totalPrice.setText(String.valueOf(totalPricePerDish));
                 }
             });
-
-
         }
+    }
+
+    public boolean isNumber(String value){
+        Pattern pattern = Pattern.compile("[0-9]");
+        Matcher matcher = pattern.matcher(value);
+        return matcher.find();
     }
 }

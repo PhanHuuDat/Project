@@ -28,12 +28,14 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
     private LayoutInflater mLayoutInflater;
     private Context mContext;
     private List<Dish> viewList;
+    private List<Dish> tempList;
     private Bundle myBundle;
 
     public DishAdapter(Context mContext, List<Dish> dishList, Bundle myBundle) {
         this.dishList = dishList;
         this.mContext = mContext;
         this.mLayoutInflater = LayoutInflater.from(mContext);
+        tempList = dishList;
         viewList = new ArrayList<>();
         this.myBundle = myBundle;
     }
@@ -77,16 +79,14 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
                 @Override
                 public void onClick(View view) {
                     for (int i = 0; i < dishList.size(); i++) {
-                        if(dishList.get(i).getName().equals(name.getText().toString())){
+                        if(tempList.get(i).getName().equals(name.getText().toString())){
                             viewList.add(dishList.get(i));
+                            tempList.remove(i);
+                            Toast.makeText(mContext, name.getText().toString(), Toast.LENGTH_LONG).show();
                             break;
                         }
                     }
-                    Toast.makeText(mContext, name.getText().toString(), Toast.LENGTH_LONG).show();
-
-
                     myBundle.putSerializable("list", (Serializable) viewList);
-
                 }
             });
 

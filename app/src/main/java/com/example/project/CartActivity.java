@@ -22,6 +22,7 @@ public class CartActivity extends Activity {
     private CartAdapter adapter;
     private Button btn_back, btn_calculator;
     private Bundle myBundle;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +31,11 @@ public class CartActivity extends Activity {
         btn_back = findViewById(R.id.btn_back);
         myBundle = getIntent().getBundleExtra("myPackage");
 
-        list = (List<Dish>) myBundle.getSerializable("list");
 
+        list = (List<Dish>) myBundle.getSerializable("list");
+        if (list == null) {
+            list = new ArrayList<>();
+        }
         recyclerView = findViewById(R.id.cart_recycler_view);
         adapter = new CartAdapter(this, list);
 
