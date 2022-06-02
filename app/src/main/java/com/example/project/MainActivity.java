@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int REQUEST_CODE = 135;
     private List<Dish> list = new ArrayList<>();
     private RecyclerView recyclerView;
     private DishAdapter adapter;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 intentToCart.putExtra("myPackage",bundleToCart);
-                startActivity(intentToCart);
+                startActivityForResult(intentToCart,REQUEST_CODE);
             }
         });
     }
