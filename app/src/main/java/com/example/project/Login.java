@@ -41,7 +41,7 @@ public class Login extends AppCompatActivity {
     public boolean doValidate() {
         String user = edt_UserName.getEditText().getText().toString();
         String pass = edt_Pass.getEditText().getText().toString();
-        String noWhiteSpace = "";
+
         if (user.isEmpty()) {
             edt_UserName.setError("Username cannot be empty!");
             return false;
