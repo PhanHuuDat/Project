@@ -31,7 +31,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (doValidate()) {
-                    Intent intent = new Intent(Login.this, MainActivity.class);
+                    Intent intent = new Intent(Login.this, DashboardScreen.class);
                     startActivityForResult(intent, 0);
                 }
             }
