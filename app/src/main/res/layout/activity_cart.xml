@@ -2,52 +2,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/idRLHome"
+    android:id="@+id/idRLCart"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
-    <RelativeLayout
-        android:id="@+id/layout_search"
+
+    <TextView
+        android:id="@+id/tv_total"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="64dp"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="20dp"
-        android:background="@color/white"
-        android:elevation="8dp">
-
-        <EditText
-            android:id="@+id/edt_search"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:layout_toLeftOf="@id/ico_search"
-            android:background="@null"
-            android:focusedByDefault="false"
-            android:hint="Search"
-            tools:ignore="TouchTargetSizeCheck" />
-
-        <ImageView
-            android:id="@+id/ico_search"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:src="@drawable/search_icon" />
-    </RelativeLayout>
+        android:layout_gravity="center"
+        android:background="#f8f9fa"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:text="Total"
+        android:textSize="32dp"
+        android:textStyle="bold" />
 
     <!--recycler view for our data-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_dishes"
         android:layout_width="match_parent"
-        android:layout_below="@id/layout_search"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/dish_item" />
+        android:layout_below="@id/tv_total"
+        tools:listitem="@layout/cart_item" />
 
     <!--progress bar for loading indicator-->
     <ProgressBar
@@ -60,7 +40,26 @@
 
     <!--floating action button-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_cart"
+        android:id="@+id/btn_summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_remove"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:elevation="12dp"
+        android:src="@drawable/check"
+        app:background="@color/green_shade"
+        app:backgroundTint="@color/green_shade"
+        app:tint="@color/white"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <!--floating action button-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_remove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/btns_nav"
@@ -71,28 +70,28 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:elevation="12dp"
-        android:src="@drawable/cart"
+        android:src="@drawable/bin"
         app:background="@color/red_shade_1"
         app:backgroundTint="@color/red_shade_2"
         app:tint="@color/white"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    //navigate button group - home selected
+    <!--    navigate button group - none selected-->
     <LinearLayout
         android:id="@+id/btns_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:elevation="12dp"
-        android:weightSum="3"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="3">
 
         <RelativeLayout
             android:id="@+id/btn_home"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="1"
-            android:background="@drawable/card_2"
+            android:background="@drawable/card_1"
             android:elevation="8dp">
 
             <ImageView
@@ -101,6 +100,7 @@
                 android:layout_centerInParent="true"
                 android:src="@drawable/house" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/btn_orders"
             android:layout_width="0dp"
@@ -108,12 +108,14 @@
             android:layout_weight="1"
             android:background="@drawable/card_1"
             android:elevation="8dp">
+
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/list" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/btn_profile"
             android:layout_width="0dp"

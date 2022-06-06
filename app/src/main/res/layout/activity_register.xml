@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context="com.example.project.activities.LoginActivity">
+    tools:context="com.example.project.activities.RegisterActivity">
 
     <ImageView
         android:transitionName="logo_image"
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/alef"
-        android:text="Sign in to continue"
+        android:text="Register a new account"
         android:textSize="18sp" />
 
     <LinearLayout
@@ -68,6 +68,20 @@
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edt_confirm_pwd"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Confirm Password"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <ProgressBar
             android:id="@+id/pd_load"
             android:layout_width="match_parent"
@@ -79,12 +93,12 @@
             android:visibility="gone" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_login"
+            android:id="@+id/btn_reg"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:text="Sign in"
+            android:text="Register"
             android:textColor="#1976D2"
             android:textSize="20dp"
             app:backgroundTint="@color/white"
@@ -94,7 +108,7 @@
             app:strokeWidth="2dp" />
 
         <Button
-            android:id="@+id/btn_reg"
+            android:id="@+id/btn_login"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -103,7 +117,7 @@
             android:elevation="0dp"
             android:minHeight="48dp"
             android:textAllCaps="false"
-            android:text="Create an new account"
+            android:text="Log in with existed account"
             android:textColor="#1976D2" />
     </LinearLayout>
 </LinearLayout>
