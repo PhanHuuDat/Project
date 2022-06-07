@@ -2,17 +2,70 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/idRLHome"
+    android:id="@+id/idRLCart"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+    tools:context=".activities.OrderDetailActivity">
+
+    <LinearLayout
+        android:id="@+id/btns_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:elevation="12dp"
+        android:orientation="horizontal"
+        android:weightSum="6">
+
+        <RelativeLayout
+            android:id="@+id/btn_back"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:elevation="8dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/back" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_total"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_above="@id/btns_nav"
+        android:layout_gravity="center"
+        android:background="#f8f9fa"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:text="Total"
+        android:textSize="32dp"
+        android:elevation="14dp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_above="@id/tv_total"
+        android:layout_gravity="center"
+        android:background="#f8f9fa"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:elevation="14dp"
+        android:text="Status"
+        android:textSize="24dp"
+        android:textStyle="bold" />
 
     <!--recycler view for our data-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_dishes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/dish_item" />
+        android:layout_below="@id/btns_back"
+        tools:listitem="@layout/cart_item" />
 
     <!--progress bar for loading indicator-->
     <ProgressBar
@@ -23,41 +76,22 @@
         android:indeterminate="true"
         android:indeterminateDrawable="@drawable/progress_back" />
 
-    <!--floating action button-->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_cart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/btns_nav"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:elevation="12dp"
-        android:src="@drawable/cart"
-        app:background="@color/red_shade_1"
-        app:backgroundTint="@color/red_shade_2"
-        app:tint="@color/white"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    //navigate button group - home selected
+    <!--    navigate button group - none selected-->
     <LinearLayout
         android:id="@+id/btns_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:elevation="12dp"
-        android:weightSum="4"
-        android:orientation="horizontal">
+        android:elevation="16dp"
+        android:orientation="horizontal"
+        android:weightSum="4">
 
         <RelativeLayout
             android:id="@+id/btn_home"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="1"
-            android:background="@drawable/card_2"
+            android:background="@drawable/card_1"
             android:elevation="8dp">
 
             <ImageView
@@ -66,6 +100,7 @@
                 android:layout_centerInParent="true"
                 android:src="@drawable/house" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/btn_search"
             android:layout_width="0dp"
@@ -79,6 +114,7 @@
                 android:layout_centerInParent="true"
                 android:src="@drawable/search_icon" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/btn_orders"
             android:layout_width="0dp"
@@ -86,12 +122,14 @@
             android:layout_weight="1"
             android:background="@drawable/card_1"
             android:elevation="8dp">
+
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/list" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/btn_profile"
             android:layout_width="0dp"

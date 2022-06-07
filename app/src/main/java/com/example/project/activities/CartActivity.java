@@ -50,6 +50,7 @@ public class CartActivity extends AppCompatActivity implements ItemClickInterfac
     private TextView tvTotal;
     private FloatingActionButton btnSummary;
     private RelativeLayout btnHome;
+    private RelativeLayout btnSearch;
     private RelativeLayout btnOrders;
     private RelativeLayout btnProfile;
     private RelativeLayout rlHome;
@@ -77,6 +78,7 @@ public class CartActivity extends AppCompatActivity implements ItemClickInterfac
         cartItems = new ArrayList<>();
         btnSummary = findViewById(R.id.btn_summary);
         btnHome = findViewById(R.id.btn_home);
+        btnSearch = findViewById(R.id.btn_search);
         btnOrders = findViewById(R.id.btn_orders);
         btnProfile = findViewById(R.id.btn_profile);
         cartItems = new ArrayList<>();
@@ -155,6 +157,18 @@ public class CartActivity extends AppCompatActivity implements ItemClickInterfac
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(CartActivity.this, MainActivity.class);
+                startActivity(myIntent);
+                finish();
+            }
+        });
+
+        //navigate to search
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(MainActivity.this, "Btn cart clicked", Toast.LENGTH_SHORT).show();
+                // opening a new activity for adding a course.
+                Intent myIntent = new Intent(CartActivity.this, SearchActivity.class);
                 startActivity(myIntent);
                 finish();
             }

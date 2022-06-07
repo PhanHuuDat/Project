@@ -17,6 +17,7 @@ import com.example.project.R;
 import com.example.project.adapters.DishAdapter;
 import com.example.project.adapters.OrderAdapter;
 import com.example.project.interfaces.ItemClickInterface;
+import com.example.project.interfaces.ItemLongClickInterface;
 import com.example.project.models.CartItem;
 import com.example.project.models.Dish;
 import com.example.project.models.Order;
@@ -37,6 +38,7 @@ public class OrdersActivity extends AppCompatActivity implements ItemClickInterf
     private FloatingActionButton btnCart;
     private RecyclerView rvOrder;
     private RelativeLayout btnHome;
+    private RelativeLayout btnSearch;
     private RelativeLayout btnOrders;
     private RelativeLayout btnProfile;
     private FirebaseDatabase firebaseDatabase;
@@ -59,6 +61,7 @@ public class OrdersActivity extends AppCompatActivity implements ItemClickInterf
         rlHome = findViewById(R.id.idRLHome);
         pbLoad = findViewById(R.id.pb_load_main);
         btnHome = findViewById(R.id.btn_home);
+        btnSearch = findViewById(R.id.btn_search);
         btnOrders = findViewById(R.id.btn_orders);
         btnProfile = findViewById(R.id.btn_profile);
 
@@ -141,7 +144,19 @@ public class OrdersActivity extends AppCompatActivity implements ItemClickInterf
             }
         });
 
-        //navigate to order
+        //navigate to search
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(MainActivity.this, "Btn cart clicked", Toast.LENGTH_SHORT).show();
+                // opening a new activity for adding a course.
+                Intent myIntent = new Intent(OrdersActivity.this, SearchActivity.class);
+                startActivity(myIntent);
+                finish();
+            }
+        });
+
+        //navigate to home
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -174,6 +189,11 @@ public class OrdersActivity extends AppCompatActivity implements ItemClickInterf
 
     @Override
     public void onItemClick(int position) {
-
+        Intent myIntent = new Intent(this, OrderDetailActivity.class);
+        Bundle myBundle = new Bundle();
+        myBundle.putString("OID", orders.get(position).getOid());
+        myIntent.putExtra("myPacket", myBundle);
+        startActivity(myIntent);
     }
+
 }

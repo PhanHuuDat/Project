@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-public class MainActivity extends AppCompatActivity implements ItemClickInterface {
+public class SearchActivity extends AppCompatActivity implements ItemClickInterface {
 
     private FloatingActionButton btnCart;
     private RecyclerView rvDishes;
@@ -53,11 +53,12 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
     private RelativeLayout btnSearch;
     private RelativeLayout btnOrders;
     private RelativeLayout btnProfile;
+    private SearchView svSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_search);
 
         //init vars
         rvDishes = findViewById(R.id.rv_dishes);
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
         btnSearch = findViewById(R.id.btn_search);
         btnOrders = findViewById(R.id.btn_orders);
         btnProfile = findViewById(R.id.btn_profile);
+        svSearch = findViewById(R.id.sv_search);
         dishes = new ArrayList<>();
         //init db
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -93,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
     }
 
     private void goToLogin() {
-        Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
+        Intent myIntent = new Intent(SearchActivity.this, LoginActivity.class);
         startActivity(myIntent);
         finish();
     }
@@ -105,28 +107,24 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 pbLoad.setVisibility(View.GONE);
                 dishes.add(snapshot.getValue(Dish.class));
-                adapter.filter("all");
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 pbLoad.setVisibility(View.GONE);
-                adapter.filter("all");
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 pbLoad.setVisibility(View.GONE);
-                adapter.filter("all");
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 pbLoad.setVisibility(View.GONE);
-                adapter.filter("all");
                 adapter.notifyDataSetChanged();
             }
 
@@ -138,15 +136,26 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
     }
 
     private void addEvent() {
-        //navigate to search
-        btnSearch.setOnClickListener(new View.OnClickListener() {
+        //search
+        svSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onClick(View v) {
-                //Toast.makeText(MainActivity.this, "Btn cart clicked", Toast.LENGTH_SHORT).show();
-                // opening a new activity for adding a course.
-                Intent myIntent = new Intent(MainActivity.this, SearchActivity.class);
-                startActivity(myIntent);
-                finish();
+            public boolean onQueryTextSubmit(String query) {
+                if (query.length() == 0) {
+                    getDishes();
+                } else {
+                    adapter.filter(query);
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.length() == 0) {
+                    getDishes();
+                } else {
+                    adapter.filter(newText);
+                }
+                return true;
             }
         });
         //navigate to cart list
@@ -155,17 +164,29 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
             public void onClick(View v) {
                 //Toast.makeText(MainActivity.this, "Btn cart clicked", Toast.LENGTH_SHORT).show();
                 // opening a new activity for adding a course.
-                Intent myIntent = new Intent(MainActivity.this, CartActivity.class);
+                Intent myIntent = new Intent(SearchActivity.this, CartActivity.class);
                 startActivity(myIntent);
                 finish();
             }
         });
 
-        //reload this
+        //navigate to home
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(MainActivity.this, MainActivity.class);
+                Intent myIntent = new Intent(SearchActivity.this, MainActivity.class);
+                startActivity(myIntent);
+                finish();
+            }
+        });
+
+        //navigate to search
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(MainActivity.this, "Btn cart clicked", Toast.LENGTH_SHORT).show();
+                // opening a new activity for adding a course.
+                Intent myIntent = new Intent(SearchActivity.this, SearchActivity.class);
                 startActivity(myIntent);
                 finish();
             }
@@ -175,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
         btnOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(MainActivity.this, OrdersActivity.class);
+                Intent myIntent = new Intent(SearchActivity.this, OrdersActivity.class);
                 startActivity(myIntent);
                 finish();
             }
@@ -185,27 +206,17 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
         btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(MainActivity.this, ProfileActivity.class);
+                Intent myIntent = new Intent(SearchActivity.this, ProfileActivity.class);
                 startActivity(myIntent);
                 finish();
             }
         });
-
-    }
-
-    private void prepareDishesData() {
-        Dish dish = new Dish("1", "Cơm sườn", "Cơm", "30000", "https://cdn.beptruong.edu.vn/wp-content/uploads/2018/06/cach-uop-thit-nuong-com-tam.jpg");
-        Dish dish1 = new Dish("2", "Cơm sườn2", "Cơm", "31000", "https://cdn.beptruong.edu.vn/wp-content/uploads/2018/06/cach-uop-thit-nuong-com-tam.jpg");
-        Dish dish2 = new Dish("3", "Cơm sườn3", "Cơm", "32000", "https://cdn.beptruong.edu.vn/wp-content/uploads/2018/06/cach-uop-thit-nuong-com-tam.jpg");
-        Dish dish3 = new Dish("4", "Cơm sườn4", "Cơm", "33000", "https://cdn.beptruong.edu.vn/wp-content/uploads/2018/06/cach-uop-thit-nuong-com-tam.jpg");
-        dishes.add(dish);
-        dishes.add(dish1);
-        dishes.add(dish2);
-        dishes.add(dish3);
     }
 
     @Override
     public void onItemClick(int position) {
+//        displayBottomSheet(dishes.get(position));
+        //Toast.makeText(MainActivity.this, dishes.get(position).getId(), Toast.LENGTH_SHORT).show();
         Intent myIntent = new Intent(this, DetailActivity.class);
         Bundle myBundle = new Bundle();
         myBundle.putString("dishID", dishes.get(position).getId());

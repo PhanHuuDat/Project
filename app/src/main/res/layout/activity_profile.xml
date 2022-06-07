@@ -197,7 +197,7 @@
         android:layout_alignParentBottom="true"
         android:elevation="12dp"
         android:orientation="horizontal"
-        android:weightSum="3">
+        android:weightSum="4">
 
         <RelativeLayout
             android:id="@+id/btn_home"
@@ -212,6 +212,20 @@
                 android:layout_height="30dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/house" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btn_search"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:background="@drawable/card_1"
+            android:elevation="8dp">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/search_icon" />
         </RelativeLayout>
 
         <RelativeLayout

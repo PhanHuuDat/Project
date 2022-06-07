@@ -41,6 +41,7 @@ public class DetailActivity extends AppCompatActivity {
     private FloatingActionButton btnCart;
     private ProgressBar pbLoad;
     private RelativeLayout btnHome;
+    private RelativeLayout btnSearch;
     private RelativeLayout btnOrders;
     private RelativeLayout btnProfile;
     private RelativeLayout btnBack;
@@ -115,14 +116,23 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        //reload this
+        //navigate to search
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(MainActivity.this, "Btn cart clicked", Toast.LENGTH_SHORT).show();
+                // opening a new activity for adding a course.
+                Intent myIntent = new Intent(DetailActivity.this, SearchActivity.class);
+                startActivity(myIntent);
+                finish();
+            }
+        });
+
+        //navigate to order
         btnOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(DetailActivity.this, OrdersActivity.class);
-                Bundle myBundle = new Bundle();
-                myBundle.putString("dishID", currentDID);
-                myIntent.putExtra("myPacket", myBundle);
                 startActivity(myIntent);
                 finish();
             }
@@ -192,6 +202,7 @@ public class DetailActivity extends AppCompatActivity {
         btnAdd = findViewById(R.id.btn_add);
         btnCart = findViewById(R.id.btn_cart);
         btnHome = findViewById(R.id.btn_home);
+        btnSearch = findViewById(R.id.btn_search);
         btnOrders = findViewById(R.id.btn_orders);
         btnProfile = findViewById(R.id.btn_profile);
         btnBack = findViewById(R.id.btn_back);

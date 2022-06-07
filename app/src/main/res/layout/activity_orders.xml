@@ -12,8 +12,8 @@
         android:id="@+id/rv_orders"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_above="@id/btns_nav"
+        android:layout_alignParentTop="true"
         tools:listitem="@layout/order_item" />
 
     <!--progress bar for loading indicator-->
@@ -45,14 +45,15 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     //navigate button group - order list selected
+
     <LinearLayout
         android:id="@+id/btns_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:elevation="12dp"
-        android:weightSum="3"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="4">
 
         <RelativeLayout
             android:id="@+id/btn_home"
@@ -68,6 +69,22 @@
                 android:layout_centerInParent="true"
                 android:src="@drawable/house" />
         </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btn_search"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:background="@drawable/card_1"
+            android:elevation="8dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/search_icon" />
+        </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/btn_orders"
             android:layout_width="0dp"
@@ -75,12 +92,14 @@
             android:layout_weight="1"
             android:background="@drawable/card_2"
             android:elevation="8dp">
+
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/list" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/btn_profile"
             android:layout_width="0dp"

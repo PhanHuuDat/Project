@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,11 +22,13 @@ import com.example.project.interfaces.ItemClickInterface;
 import com.example.project.models.Dish;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> {
 
     private List<Dish> dishList;
+    private List<Dish> filteredDishList = new ArrayList<>();
     private LayoutInflater mLayoutInflater;
     private Context mContext;
     int lastPos = -1;
@@ -32,6 +36,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> 
 
     public DishAdapter(Context mContext, List<Dish> dishList, ItemClickInterface itemClickInterface) {
         this.dishList = dishList;
+        this.filteredDishList.addAll(dishList);
         this.mContext = mContext;
         this.itemClickInterface = itemClickInterface;
         this.mLayoutInflater = LayoutInflater.from(mContext);
@@ -46,7 +51,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        Dish dish = dishList.get(position);
+        Dish dish = filteredDishList.get(position);
 
         holder.name.setText(dish.getName());
         holder.category.setText(dish.getCategory());
@@ -62,9 +67,24 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.MyViewHolder> 
         });
     }
 
+    public void filter(String charText) {
+        charText = charText.toLowerCase();
+        filteredDishList.clear();
+        if (charText.length() == 0 || charText.equals("all")) {
+            filteredDishList.addAll(dishList);
+        } else {
+            for (Dish d : dishList) {
+                if (d.getName().toLowerCase().contains(charText)) {
+                    filteredDishList.add(d);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
-        return dishList.size();
+        return filteredDishList.size();
     }
 
     private void setAnimation(View itemView, int position) {

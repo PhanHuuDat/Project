@@ -31,6 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Button btnChange, btnSave;
     private LinearLayout grpInfo, grpEdit;
     private RelativeLayout btnHome;
+    private RelativeLayout btnSearch;
     private RelativeLayout btnOrders;
     private RelativeLayout btnProfile;
     private ProgressBar pbLoad;
@@ -96,6 +97,18 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(ProfileActivity.this, MainActivity.class);
+                startActivity(myIntent);
+                finish();
+            }
+        });
+
+        //navigate to search
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(MainActivity.this, "Btn cart clicked", Toast.LENGTH_SHORT).show();
+                // opening a new activity for adding a course.
+                Intent myIntent = new Intent(ProfileActivity.this, SearchActivity.class);
                 startActivity(myIntent);
                 finish();
             }
@@ -172,6 +185,7 @@ public class ProfileActivity extends AppCompatActivity {
         edtPwd = findViewById(R.id.edt_pwd);
         edtConfirm = findViewById(R.id.edt_confirm_pwd);
         btnHome = findViewById(R.id.btn_home);
+        btnSearch = findViewById(R.id.btn_search);
         btnOrders = findViewById(R.id.btn_orders);
         btnProfile = findViewById(R.id.btn_profile);
         pbLoad = findViewById(R.id.pb_load);

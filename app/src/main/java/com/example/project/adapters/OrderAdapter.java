@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project.R;
 import com.example.project.interfaces.ItemClickInterface;
+import com.example.project.interfaces.ItemLongClickInterface;
 import com.example.project.models.CartItem;
 import com.example.project.models.Order;
 import com.squareup.picasso.Picasso;
@@ -35,10 +36,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     int lastPos = -1;
     private ItemClickInterface itemClickInterface;
 
-    public OrderAdapter(Context mContext, List<Order> orders, ItemClickInterface itemClickInterface) {
+    public OrderAdapter(Context mContext, List<Order> orders, ItemClickInterface itemClick) {
         this.orders = orders;
         this.mContext = mContext;
-        this.itemClickInterface = itemClickInterface;
+        this.itemClickInterface = itemClick;
         this.mLayoutInflater = LayoutInflater.from(mContext);
     }
 
@@ -55,18 +56,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
         holder.tvOID.setText("Order ID: " + order.getOid());
         holder.tvOTime.setText("Order at: " + order.getOrderTime());
-        holder.tvRTime.setText("Receive at: " +order.getReceiveTime());
+        holder.tvRTime.setText("Receive at: " + order.getReceiveTime());
         holder.tvFinalPrice.setText("Total: " + order.getPrice() + " VND");
         holder.imgStatus.setVisibility(View.VISIBLE);
-        try {
-            Date now = new Date();
-            Date date1=new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(order.getReceiveTime());
-            if (now.compareTo(date1) == 1) {
-                order.setStatus("received");
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         switch (order.getStatus()) {
             case "pending":
                 Picasso.get().load(R.drawable.pending).placeholder(R.drawable.pending).into(holder.imgStatus);
@@ -87,12 +79,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
         // adding animation to recycler view item on below line.
         setAnimation(holder.itemView, position);
-        holder.itemCV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                itemClickInterface.onItemClick(position);
-            }
-        });
+        holder.itemCV.setOnClickListener(v -> itemClickInterface.onItemClick(position));
     }
 
     @Override
