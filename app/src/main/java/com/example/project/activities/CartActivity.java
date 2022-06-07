@@ -125,17 +125,23 @@ public class CartActivity extends AppCompatActivity implements ItemClickInterfac
                         "Yes",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                Order newOrder = new Order();
-                                newOrder.setStatus("pending");
-                                newOrder.setOid(generateOID());
-                                newOrder.setOrderItems(cart.getCartItems());
-                                newOrder.setUid(cart.getUid());
-                                newOrder.setPrice(cart.getTotal());
-                                databaseReference = firebaseDatabase.getReference("Orders");
-                                databaseReference.child(newOrder.getOid()).setValue(newOrder);
-                                databaseReference = firebaseDatabase.getReference("Carts");
-                                databaseReference.child(cart.getCid()).removeValue();
-                                goToOrderList();
+                                if (cart.getCartItems().size() != 0) {
+                                    Order newOrder = new Order();
+                                    newOrder.setStatus("pending");
+                                    newOrder.setOid(generateOID());
+                                    newOrder.setOrderItems(cart.getCartItems());
+                                    newOrder.setUid(cart.getUid());
+                                    newOrder.setPrice(cart.getTotal());
+                                    databaseReference = firebaseDatabase.getReference("Orders");
+                                    databaseReference.child(newOrder.getOid()).setValue(newOrder);
+                                    databaseReference = firebaseDatabase.getReference("Carts");
+                                    databaseReference.child(cart.getCid()).removeValue();
+                                    goToOrderList();
+                                } else {
+                                    Toast.makeText(CartActivity.this, "Cart is empty", Toast.LENGTH_SHORT).show();
+                                    dialog.cancel();
+                                }
+
                             }
                         });
 
