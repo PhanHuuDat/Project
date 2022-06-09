@@ -14,11 +14,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.example.project.R;
 import com.example.project.models.Cart;
 import com.example.project.models.Dish;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -45,6 +47,7 @@ public class DetailActivity extends AppCompatActivity {
     private RelativeLayout btnOrders;
     private RelativeLayout btnProfile;
     private RelativeLayout btnBack;
+    private CardView cvMain;
 
     private Cart cart;
     private Dish currentD;
@@ -77,6 +80,7 @@ public class DetailActivity extends AppCompatActivity {
         Intent myIntent = new Intent(DetailActivity.this, LoginActivity.class);
         startActivity(myIntent);
         finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
     }
 
     public void addEvent() {
@@ -95,6 +99,7 @@ public class DetailActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(DetailActivity.this, CartActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -113,6 +118,7 @@ public class DetailActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(DetailActivity.this, MainActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -125,6 +131,7 @@ public class DetailActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(DetailActivity.this, SearchActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -135,6 +142,7 @@ public class DetailActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(DetailActivity.this, OrdersActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -145,6 +153,7 @@ public class DetailActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(DetailActivity.this, ProfileActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -169,15 +178,17 @@ public class DetailActivity extends AppCompatActivity {
                             long singlePrice = Long.valueOf(currentD.getPrice());
                             long totalPrice = singlePrice * amount;
                             cart.addToCart(currentDID, amount, singlePrice, totalPrice, currentD.getFoodImg());
-                            cart.setTotal(cart.getTotal() + Long.valueOf(currentD.getPrice()) * amount);
+//                            cart.setTotal(cart.getTotal() + Long.valueOf(currentD.getPrice()) * amount);
                             saveCart();
-                            Toast.makeText(DetailActivity.this,
-                                    "Added to cart", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(DetailActivity.this,
+//                                    "Added to cart", Toast.LENGTH_SHORT).show();
+                            Snackbar.make(cvMain, "Added to cart", Snackbar.LENGTH_SHORT).show();
 
                         } catch (Exception e) {
                             Toast.makeText(DetailActivity.this,
                                     e.getMessage(), Toast.LENGTH_SHORT).show();
-                            System.out.println(e.getMessage());
+                            Snackbar.make(cvMain, e.getMessage(), Snackbar.LENGTH_SHORT).show();
+//                            System.out.println(e.getMessage());
                         }
                     }
                 })
@@ -206,6 +217,7 @@ public class DetailActivity extends AppCompatActivity {
         btnOrders = findViewById(R.id.btn_orders);
         btnProfile = findViewById(R.id.btn_profile);
         btnBack = findViewById(R.id.btn_back);
+        cvMain = findViewById(R.id.card_detail);
         findCurrentDish(currentDID);
         getCart();
     }
@@ -229,16 +241,18 @@ public class DetailActivity extends AppCompatActivity {
                     Picasso.get().load(currentD.getFoodImg()).into(ivFoodImg);
                     tvFoodName.setText(currentD.getName());
                     tvFoodCat.setText(currentD.getCategory());
-                    tvFoodPrice.setText(currentD.getPrice());
+                    tvFoodPrice.setText(currentD.getPrice()+ " VND");
                 }
                 if (isEmpty) {
-                    Toast.makeText(DetailActivity.this, "Data does not exist", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(DetailActivity.this, "Data does not exist", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(cvMain, "Data does not exist", Snackbar.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(DetailActivity.this, "Error", Toast.LENGTH_LONG).show();
+//                Toast.makeText(DetailActivity.this, "Error", Toast.LENGTH_LONG).show();
+                Snackbar.make(cvMain, "Error!", Snackbar.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -275,7 +289,8 @@ public class DetailActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(DetailActivity.this, "Error", Toast.LENGTH_LONG).show();
+//                Toast.makeText(DetailActivity.this, "Error", Toast.LENGTH_LONG).show();
+                Snackbar.make(cvMain, "Error!!", Snackbar.LENGTH_SHORT).show();
                 finish();
             }
         });

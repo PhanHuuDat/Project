@@ -132,7 +132,7 @@ public class Order implements Parcelable {
             Date orderDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(this.getOrderTime());
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(orderDate);
-            calendar.add(Calendar.MINUTE, 1);
+            calendar.add(Calendar.HOUR, 1);
             orderDate = calendar.getTime();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             simpleDateFormat.format(orderDate, stringBuffer, new FieldPosition(0));

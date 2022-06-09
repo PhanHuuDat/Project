@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".activities.DetailActivity">
 
     <LinearLayout
@@ -20,7 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
+            android:background="@color/white"
             android:elevation="8dp">
 
             <ImageView
@@ -31,24 +32,31 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <androidx.cardview.widget.CardView
+    <ImageView
+        android:id="@+id/img_avatar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/btns_nav"
-        android:layout_below="@id/btns_back">
+        android:background="@color/green_shade"
+        android:layout_above="@id/btn_add"
+        android:layout_below="@id/btns_back"
+        android:scaleType="fitXY"
+        android:layout_weight="5" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_detail"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginBottom="18dp"
+        android:layout_height="203dp"
+        app:cardCornerRadius="12dp"
+        android:layout_above="@id/btns_nav">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="24dp"
-            android:weightSum="10">
-
-            <ImageView
-                android:id="@+id/img_avatar"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="5" />
+            android:weightSum="3">
 
             <TextView
                 android:id="@+id/tv_dish_name"
@@ -165,6 +173,7 @@
             android:layout_weight="1"
             android:background="@drawable/card_1"
             android:elevation="8dp">
+
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"

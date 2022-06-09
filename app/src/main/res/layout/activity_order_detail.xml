@@ -65,6 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/btns_back"
+        android:layout_above="@id/tv_status"
         tools:listitem="@layout/cart_item" />
 
     <!--progress bar for loading indicator-->

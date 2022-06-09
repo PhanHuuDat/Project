@@ -11,6 +11,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_dishes"
         android:layout_width="match_parent"
+        android:layout_above="@id/btns_nav"
+
         android:layout_height="wrap_content"
         tools:listitem="@layout/dish_item" />
 
@@ -42,7 +44,7 @@
         app:tint="@color/white"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    //navigate button group - home selected
+<!--    navigate button group - home selected-->
     <LinearLayout
         android:id="@+id/btns_nav"
         android:layout_width="match_parent"

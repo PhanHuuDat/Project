@@ -34,7 +34,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
         //init db
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Dishes");
+//        prepareDishesData();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user == null) {
@@ -87,8 +90,6 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
         rvDishes.setAdapter(adapter);
         //get dishes
         getDishes();
-
-//        prepareDishesData();
         addEvent();
     }
 
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
         Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(myIntent);
         finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
     }
 
     private void getDishes() {
@@ -147,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
                 Intent myIntent = new Intent(MainActivity.this, SearchActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
         //navigate to cart list
@@ -158,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
                 Intent myIntent = new Intent(MainActivity.this, CartActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -168,6 +172,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
                 Intent myIntent = new Intent(MainActivity.this, MainActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -178,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
                 Intent myIntent = new Intent(MainActivity.this, OrdersActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -188,20 +194,36 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
                 Intent myIntent = new Intent(MainActivity.this, ProfileActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
     }
 
     private void prepareDishesData() {
-        Dish dish = new Dish("1", "Cơm sườn", "Cơm", "30000", "https://cdn.beptruong.edu.vn/wp-content/uploads/2018/06/cach-uop-thit-nuong-com-tam.jpg");
-        Dish dish1 = new Dish("2", "Cơm sườn2", "Cơm", "31000", "https://cdn.beptruong.edu.vn/wp-content/uploads/2018/06/cach-uop-thit-nuong-com-tam.jpg");
-        Dish dish2 = new Dish("3", "Cơm sườn3", "Cơm", "32000", "https://cdn.beptruong.edu.vn/wp-content/uploads/2018/06/cach-uop-thit-nuong-com-tam.jpg");
-        Dish dish3 = new Dish("4", "Cơm sườn4", "Cơm", "33000", "https://cdn.beptruong.edu.vn/wp-content/uploads/2018/06/cach-uop-thit-nuong-com-tam.jpg");
-        dishes.add(dish);
-        dishes.add(dish1);
-        dishes.add(dish2);
-        dishes.add(dish3);
+        List<Dish> uploadList = new ArrayList<>();
+        //String id, String name, String category, String price, String foodImg)
+        Dish dish1 = new Dish("1", "Cơm gà", "Rice", "20000", "https://cdn.tgdd.vn/2020/07/CookRecipe/GalleryStep/thanh-pham-421.jpg" );
+        Dish dish2 = new Dish("2", "Cơm sườn", "Rice", "25000", "https://cdn.beptruong.edu.vn/wp-content/uploads/2018/06/cach-uop-thit-nuong-com-tam.jpg" );
+
+        Dish dish3 = new Dish("3", "Bún riêu", "Noodle", "24000", "https://cdn.tgdd.vn/2020/07/CookRecipe/GalleryStep/thanh-pham-421.jpg" );
+        Dish dish4 = new Dish("4", "Bún thịt nướng", "Noodle", "22000", "https://cdn.tgdd.vn/2020/07/CookRecipe/GalleryStep/thanh-pham-421.jpg" );
+
+        Dish dish5 = new Dish("5", "Phở bò", "Noodle", "30000", "https://i.ytimg.com/vi/0Z__e-gagx4/maxresdefault.jpg" );
+
+        Dish dish6 = new Dish("6", "Bò nướng", "Steak", "250000", "https://khoaikhau.com/wp-content/uploads/2020/09/mon-beefsteak-da-chuan-bi-xong-tai-mot-steakhouse.jpg" );
+
+        Dish dish7 = new Dish("7", "Ramen", "Noodle", "45000", "https://glebekitchen.com/wp-content/uploads/2017/04/tonkotsuramenfront.jpg\n" );
+        Dish dish8 = new Dish("8", "Cháo lòng", "Soup", "30000", "https://images.foody.vn/res/g25/245020/prof/s576x330/foody-mobile-foody-chao-long-hai--594-636014051026334282.jpg" );
+        uploadList.add(dish1);
+        uploadList.add(dish2);
+        uploadList.add(dish3);
+        uploadList.add(dish4);
+        uploadList.add(dish5);
+        uploadList.add(dish6);
+        uploadList.add(dish7);
+        uploadList.add(dish8);
+        databaseReference.setValue(uploadList);
     }
 
     @Override
@@ -211,6 +233,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickInterfac
         myBundle.putString("dishID", dishes.get(position).getId());
         myIntent.putExtra("myPacket", myBundle);
         startActivity(myIntent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
     }
 
 }

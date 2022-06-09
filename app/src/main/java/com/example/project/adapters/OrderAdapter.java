@@ -54,9 +54,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull OrderAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Order order = orders.get(position);
 
-        holder.tvOID.setText("Order ID: " + order.getOid());
-        holder.tvOTime.setText("Order at: " + order.getOrderTime());
-        holder.tvRTime.setText("Receive at: " + order.getReceiveTime());
+        holder.tvOID.setText("ID: " + order.getOid());
+        holder.tvOTime.setText("Order: " + order.getOrderTime());
+        holder.tvRTime.setText("Receive: " + order.getReceiveTime());
         holder.tvFinalPrice.setText("Total: " + order.getPrice() + " VND");
         holder.imgStatus.setVisibility(View.VISIBLE);
         switch (order.getStatus()) {

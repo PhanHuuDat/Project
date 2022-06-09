@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ln_reg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,29 +10,29 @@
     tools:context="com.example.project.activities.RegisterActivity">
 
     <ImageView
-        android:transitionName="logo_image"
         android:id="@+id/logoImg"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/food2" />
+        android:src="@drawable/food2"
+        android:transitionName="logo_image" />
 
     <TextView
-        android:transitionName="logo_text"
         android:id="@+id/tv_logo_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/alfa_slab_one"
         android:text="Hello There, Welcome!"
         android:textColor="@color/purple_500"
-        android:textSize="40sp" />
+        android:textSize="40sp"
+        android:transitionName="logo_text" />
 
     <TextView
-        android:textColor="#F57C00"
         android:id="@+id/tv_slogan_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/alef"
         android:text="Register a new account"
+        android:textColor="#F57C00"
         android:textSize="18sp" />
 
     <LinearLayout
@@ -51,7 +52,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"/>
+                android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -116,8 +117,8 @@
             android:background="#00000000"
             android:elevation="0dp"
             android:minHeight="48dp"
-            android:textAllCaps="false"
             android:text="Log in with existed account"
+            android:textAllCaps="false"
             android:textColor="#1976D2" />
     </LinearLayout>
 </LinearLayout>

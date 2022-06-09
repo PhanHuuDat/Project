@@ -30,6 +30,7 @@ import com.example.project.models.CartItem;
 import com.example.project.models.Dish;
 import com.example.project.models.Order;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -63,6 +64,7 @@ public class OrderDetailActivity extends AppCompatActivity implements ItemClickI
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
 
+    private Order currentOrder;
     private List<CartItem> cartItems;
     private String currentOID;
     private String currentStatus;
@@ -79,7 +81,7 @@ public class OrderDetailActivity extends AppCompatActivity implements ItemClickI
         tvTotal = findViewById(R.id.tv_total);
         tvStatus = findViewById(R.id.tv_status);
         rvCart = findViewById(R.id.rv_dishes);
-        rlHome = findViewById(R.id.idRLHome);
+        rlHome = findViewById(R.id.idRLCart);
         pbLoad = findViewById(R.id.pb_load_main);
         cartItems = new ArrayList<>();
         btnHome = findViewById(R.id.btn_home);
@@ -116,6 +118,7 @@ public class OrderDetailActivity extends AppCompatActivity implements ItemClickI
         Intent myIntent = new Intent(OrderDetailActivity.this, LoginActivity.class);
         startActivity(myIntent);
         finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
     }
 
     private void setEvent() {
@@ -134,6 +137,7 @@ public class OrderDetailActivity extends AppCompatActivity implements ItemClickI
                 Intent myIntent = new Intent(OrderDetailActivity.this, MainActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -146,6 +150,7 @@ public class OrderDetailActivity extends AppCompatActivity implements ItemClickI
                 Intent myIntent = new Intent(OrderDetailActivity.this, SearchActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -164,6 +169,7 @@ public class OrderDetailActivity extends AppCompatActivity implements ItemClickI
                 Intent myIntent = new Intent(OrderDetailActivity.this, ProfileActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
     }
@@ -171,16 +177,22 @@ public class OrderDetailActivity extends AppCompatActivity implements ItemClickI
     //get cart
     private void getOrder() {
         databaseReference = firebaseDatabase.getReference("Orders");
-        databaseReference.child(currentOID).child("orderItems").addValueEventListener(new ValueEventListener() {
+        databaseReference.child(currentOID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // Checking if the value exists
                 if (snapshot.exists()) {
-                    for (DataSnapshot sn : snapshot.getChildren()) {
-                        cartItems.add(sn.getValue(CartItem.class));
+                    currentOrder  = snapshot.getValue(Order.class);
+                    cartItems.clear();
+                    for (CartItem c: currentOrder.getOrderItems()) {
+                        cartItems.add(c);
                     }
+//                    for (DataSnapshot sn : snapshot.getChildren()) {
+//                        cartItems.add(sn.getValue(CartItem.class));
+//                    }
                 } else {
-                    Toast.makeText(OrderDetailActivity.this, "Data does not exist", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(OrderDetailActivity.this, "Data does not exist", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(rlHome, "Data does not exist...", Snackbar.LENGTH_SHORT).show();
                 }
                 updateInfo();
                 adapter.notifyDataSetChanged();
@@ -191,31 +203,28 @@ public class OrderDetailActivity extends AppCompatActivity implements ItemClickI
             }
         });
 
-        databaseReference.child(currentOID).child("status").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    currentStatus = snapshot.getValue(String.class);
-                } else {
-                    Toast.makeText(OrderDetailActivity.this, "Data does not exist", Toast.LENGTH_SHORT).show();
-                }
-                updateInfo();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        databaseReference.child(currentOID).child("status").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()) {
+//                    currentStatus = snapshot.getValue(String.class);
+//                } else {
+////                    Toast.makeText(OrderDetailActivity.this, "Data does not exist", Toast.LENGTH_SHORT).show();
+//                    Snackbar.make(rlHome, "Data does not exist...", Snackbar.LENGTH_SHORT).show();
+//                }
+//                updateInfo();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
 
     private void updateInfo() {
-        long total = 0;
-        for (CartItem c : cartItems) {
-            total += c.getTotal();
-        }
-        tvStatus.setText("Status: " + currentStatus);
-        tvTotal.setText("Total: " + total);
+        tvStatus.setText("Status: " + currentOrder.getStatus());
+        tvTotal.setText("Total: " + currentOrder.getPrice());
     }
 
 
@@ -224,6 +233,7 @@ public class OrderDetailActivity extends AppCompatActivity implements ItemClickI
         Intent myIntent = new Intent(this, OrdersActivity.class);
         startActivity(myIntent);
         finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
     }
 
     @Override
@@ -248,6 +258,7 @@ public class OrderDetailActivity extends AppCompatActivity implements ItemClickI
                         myBundle.putString("dishID", cartItems.get(position).getDishID());
                         myIntent.putExtra("myPacket", myBundle);
                         startActivity(myIntent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                         break;
                 }
                 return false;

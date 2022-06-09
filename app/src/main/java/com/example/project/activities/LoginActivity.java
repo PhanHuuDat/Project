@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.project.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private TextInputLayout edt_uname, edt_pwd;
     private Button btn_login, btn_reg;
+    private LinearLayout lnHome;
     private FirebaseAuth mAuth;
     private ProgressBar pbLoad;
 
@@ -39,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
                 // on below line opening a login activity.
                 Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(i);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -53,7 +57,8 @@ public class LoginActivity extends AppCompatActivity {
                 String password = edt_pwd.getEditText().getText().toString();
 //                 on below line validating the text input.
                 if (TextUtils.isEmpty(email) && TextUtils.isEmpty(password)) {
-                    Toast.makeText(LoginActivity.this, "Please enter your email and password..", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(LoginActivity.this, "Please enter your email and password..", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(lnHome, "Please enter your email and password...", Snackbar.LENGTH_SHORT).show();
                     pbLoad.setVisibility(View.GONE);
                     btn_login.setVisibility(View.VISIBLE);
                     return;
@@ -76,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(i);
             this.finish();
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
         }
     }
 
@@ -88,16 +94,19 @@ public class LoginActivity extends AppCompatActivity {
                     // on below line we are hiding our progress bar.
                     pbLoad.setVisibility(View.GONE);
                     btn_login.setVisibility(View.VISIBLE);
-                    Toast.makeText(LoginActivity.this, "Login Successful..", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(LoginActivity.this, "Login Successful..", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(lnHome, "Login successful...", Snackbar.LENGTH_SHORT).show();
                     // on below line we are opening our mainactivity.
                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(i);
                     finish();
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                 } else {
                     // hiding our progress bar and displaying a toast message.
                     pbLoad.setVisibility(View.GONE);
                     btn_login.setVisibility(View.VISIBLE);
-                    Toast.makeText(LoginActivity.this, "Please enter valid user credentials..", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(LoginActivity.this, "Please enter valid user credentials..", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(lnHome, "Please enter valid user credentials...", Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
@@ -111,5 +120,6 @@ public class LoginActivity extends AppCompatActivity {
         btn_reg = findViewById(R.id.btn_reg);
         mAuth = FirebaseAuth.getInstance();
         pbLoad = findViewById(R.id.pd_load);
+        lnHome = findViewById(R.id.ln_home);
     }
 }

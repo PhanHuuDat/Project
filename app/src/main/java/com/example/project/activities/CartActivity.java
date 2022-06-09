@@ -29,6 +29,7 @@ import com.example.project.models.Cart;
 import com.example.project.models.CartItem;
 import com.example.project.models.Order;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -110,6 +111,7 @@ public class CartActivity extends AppCompatActivity implements ItemClickInterfac
         Intent myIntent = new Intent(CartActivity.this, LoginActivity.class);
         startActivity(myIntent);
         finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
     }
 
     private void setEvent() {
@@ -138,7 +140,8 @@ public class CartActivity extends AppCompatActivity implements ItemClickInterfac
                                     databaseReference.child(cart.getCid()).removeValue();
                                     goToOrderList();
                                 } else {
-                                    Toast.makeText(CartActivity.this, "Cart is empty", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(CartActivity.this, "Cart is empty", Toast.LENGTH_SHORT).show();
+                                    Snackbar.make(rvCart, "Cart is empty!", Snackbar.LENGTH_SHORT).show();
                                     dialog.cancel();
                                 }
 
@@ -165,6 +168,7 @@ public class CartActivity extends AppCompatActivity implements ItemClickInterfac
                 Intent myIntent = new Intent(CartActivity.this, MainActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -177,6 +181,7 @@ public class CartActivity extends AppCompatActivity implements ItemClickInterfac
                 Intent myIntent = new Intent(CartActivity.this, SearchActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -195,6 +200,7 @@ public class CartActivity extends AppCompatActivity implements ItemClickInterfac
                 Intent myIntent = new Intent(CartActivity.this, ProfileActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -234,6 +240,7 @@ public class CartActivity extends AppCompatActivity implements ItemClickInterfac
         Intent myIntent = new Intent(this, OrdersActivity.class);
         startActivity(myIntent);
         finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
     }
 
     //get cart
@@ -273,7 +280,8 @@ public class CartActivity extends AppCompatActivity implements ItemClickInterfac
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(CartActivity.this, "Error", Toast.LENGTH_LONG).show();
+//                Toast.makeText(CartActivity.this, "Error", Toast.LENGTH_LONG).show();
+                Snackbar.make(rvCart, "Error!", Snackbar.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -310,6 +318,7 @@ public class CartActivity extends AppCompatActivity implements ItemClickInterfac
                         myBundle.putString("dishID", cartItems.get(position).getDishID());
                         myIntent.putExtra("myPacket", myBundle);
                         startActivity(myIntent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                         break;
                     case R.id.mn_edit:
 //                        Toast.makeText(CartActivity.this, "mn edit", Toast.LENGTH_SHORT).show();
@@ -334,13 +343,15 @@ public class CartActivity extends AppCompatActivity implements ItemClickInterfac
                                             databaseReference = firebaseDatabase.getReference("Carts");
                                             databaseReference.child(cart.getCid()).setValue(cart);
                                             updateInfo();
-                                            Toast.makeText(CartActivity.this,
-                                                    "Added to cart", Toast.LENGTH_SHORT).show();
+//                                            Toast.makeText(CartActivity.this,
+//                                                    "Added to cart", Toast.LENGTH_SHORT).show();
+                                            Snackbar.make(rvCart, "Added to cart!", Snackbar.LENGTH_SHORT).show();
 
                                         } catch (Exception e) {
-                                            Toast.makeText(CartActivity.this,
-                                                    e.getMessage(), Toast.LENGTH_SHORT).show();
-                                            System.out.println(e.getMessage());
+//                                            Toast.makeText(CartActivity.this,
+//                                                    e.getMessage(), Toast.LENGTH_SHORT).show();
+//                                            System.out.println(e.getMessage());
+                                            Snackbar.make(rvCart, e.getMessage(), Snackbar.LENGTH_SHORT).show();
                                         }
                                     }
                                 })

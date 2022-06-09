@@ -2,6 +2,7 @@ package com.example.project.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.example.project.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
@@ -35,6 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
     private RelativeLayout btnOrders;
     private RelativeLayout btnProfile;
     private ProgressBar pbLoad;
+    private CardView cardProfile;
 
     private FirebaseAuth mAuth;
 
@@ -84,10 +87,15 @@ public class ProfileActivity extends AppCompatActivity {
                 String email = edtEmail.getEditText().getText().toString();
                 String pwd = edtPwd.getEditText().getText().toString();
                 String rePwd = edtConfirm.getEditText().getText().toString();
-                if (pwd.equals(rePwd)) {
-                    changeEmail(email, pwd);
+                if (email.length() == 0 || pwd.length() == 0 || rePwd.length() == 0) {
+                    Snackbar.make(cardProfile, "Please enter your credentials..", Snackbar.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(ProfileActivity.this, "Password not match", Toast.LENGTH_SHORT).show();
+                    if (pwd.equals(rePwd)) {
+                        changeEmail(email, pwd);
+                    } else {
+//                    Toast.makeText(ProfileActivity.this, "Password not match", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(cardProfile, "Password does not match...", Snackbar.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -99,6 +107,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(ProfileActivity.this, MainActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -111,6 +120,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(ProfileActivity.this, SearchActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -121,6 +131,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(ProfileActivity.this, OrdersActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -131,6 +142,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(ProfileActivity.this, ProfileActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
     }
@@ -139,6 +151,7 @@ public class ProfileActivity extends AppCompatActivity {
         Intent myIntent = new Intent(ProfileActivity.this, LoginActivity.class);
         startActivity(myIntent);
         finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
     }
 
     private void getCurrentUser() {
@@ -163,10 +176,12 @@ public class ProfileActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(ProfileActivity.this, "Email Changed", Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(ProfileActivity.this, "Email Changed", Toast.LENGTH_LONG).show();
+                                    Snackbar.make(cardProfile, "Email changed", Snackbar.LENGTH_SHORT).show();
                                     btnProfile.performClick();
                                 } else {
-                                    Toast.makeText(ProfileActivity.this, "Email or password incorrect", Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(ProfileActivity.this, "Email or password incorrect", Toast.LENGTH_LONG).show();
+                                    Snackbar.make(cardProfile, "Email or password incorrect...", Snackbar.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -191,5 +206,6 @@ public class ProfileActivity extends AppCompatActivity {
         pbLoad = findViewById(R.id.pb_load);
         grpEdit = findViewById(R.id.grp_info_input);
         grpInfo = findViewById(R.id.grp_info_show);
+        cardProfile = findViewById(R.id.card_profile);
     }
 }

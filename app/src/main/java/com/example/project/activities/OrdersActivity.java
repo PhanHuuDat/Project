@@ -91,6 +91,7 @@ public class OrdersActivity extends AppCompatActivity implements ItemClickInterf
         Intent myIntent = new Intent(OrdersActivity.this, LoginActivity.class);
         startActivity(myIntent);
         finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
     }
 
     private void getOrders() {
@@ -141,6 +142,7 @@ public class OrdersActivity extends AppCompatActivity implements ItemClickInterf
                 Intent myIntent = new Intent(OrdersActivity.this, CartActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -153,6 +155,7 @@ public class OrdersActivity extends AppCompatActivity implements ItemClickInterf
                 Intent myIntent = new Intent(OrdersActivity.this, SearchActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -163,6 +166,7 @@ public class OrdersActivity extends AppCompatActivity implements ItemClickInterf
                 Intent myIntent = new Intent(OrdersActivity.this, MainActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -173,6 +177,7 @@ public class OrdersActivity extends AppCompatActivity implements ItemClickInterf
                 Intent myIntent = new Intent(OrdersActivity.this, OrdersActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
@@ -183,6 +188,7 @@ public class OrdersActivity extends AppCompatActivity implements ItemClickInterf
                 Intent myIntent = new Intent(OrdersActivity.this, ProfileActivity.class);
                 startActivity(myIntent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
     }
@@ -194,6 +200,7 @@ public class OrdersActivity extends AppCompatActivity implements ItemClickInterf
         myBundle.putString("OID", orders.get(position).getOid());
         myIntent.putExtra("myPacket", myBundle);
         startActivity(myIntent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
     }
 
 }
